@@ -51,8 +51,6 @@ class _BlocProviderState<B> extends State<BlocProvider<B>> {
     }
   }
 
-  void _buildBloc() {}
-
   @override
   void dispose() {
     if (widget.onDispose != null) {

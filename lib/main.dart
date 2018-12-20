@@ -1,36 +1,67 @@
 import 'package:flutter/material.dart';
-
-import 'package:utopian_rocks_mobile/models/model.dart';
-import 'package:utopian_rocks_mobile/models/rocks_api.dart';
+import 'package:package_info/package_info.dart';
 import 'package:utopian_rocks_mobile/blocs/contribution_bloc.dart';
-import 'package:utopian_rocks_mobile/providers/contribution_provider.dart';
+import 'package:utopian_rocks_mobile/blocs/information_bloc.dart';
+import 'package:utopian_rocks_mobile/components/information_drawer.dart';
+import 'package:utopian_rocks_mobile/components/list_page.dart';
+import 'package:utopian_rocks_mobile/models/github_api.dart';
+import 'package:utopian_rocks_mobile/models/rocks_api.dart';
+import 'package:utopian_rocks_mobile/components/bottom_bar.dart';
+
+import 'package:utopian_rocks_mobile/blocs/base_provider.dart';
+
+// import 'package:utopian_rocks_mobile/providers/contribution_provider.dart';
+// import 'package:utopian_rocks_mobile/providers/information_provider.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ContributionProvider(
-      contributionBloc: ContributionBloc(
-        RocksApi(),
-      ),
+    return BlocProvider<ContributionBloc>(
+      builder: (_, bloc) =>
+          bloc ??
+          ContributionBloc(
+            RocksApi(),
+          ),
+      onDispose: (_, bloc) => bloc.dispose(),
       child: RootApp(),
     );
   }
 }
 
 class RootApp extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
-    final contributionBloc = ContributionProvider.of(context);
+    final contributionBloc = Provider.of<ContributionBloc>(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Utopian Rocks Mobile',
+      theme: ThemeData(
+        primaryColor: Color(0xff24292e),
+        accentColor: Color(0xff26A69A),
+      ),
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
+          bottomSheet: BottomBar(contributionBloc),
           appBar: AppBar(
-            title: Text(
-              'Utopian Rocks Mobile',
+            title: Flex(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              direction: Axis.horizontal,
+              children: <Widget>[
+                Flexible(
+                  flex: 2,
+                  child: Image.asset(
+                    'assets/images/utopy.png',
+                  ),
+                ),
+                Text(
+                  'Utopian Rocks Mobile',
+                ),
+              ],
             ),
             bottom: TabBar(
               tabs: <Widget>[
@@ -51,37 +82,16 @@ class RootApp extends StatelessWidget {
               ListPage('pending', contributionBloc),
             ],
           ),
+          endDrawer: BlocProvider<InformationBloc>(
+            builder: (_, bloc) => InformationBloc(
+                  PackageInfo.fromPlatform(),
+                  GithubApi(),
+                ),
+            onDispose: (_, bloc) => bloc.dispose(),
+            child: InformationDrawer(),
+          ),
         ),
       ),
     );
-  }
-}
-
-class ListPage extends StatelessWidget {
-  final ContributionBloc bloc;
-  final String pageName;
-
-  ListPage(this.pageName, this.bloc);
-
-  @override
-  Widget build(BuildContext context) {
-    bloc.pageName.add(pageName);
-
-    return StreamBuilder(
-        stream: bloc.results,
-        builder:
-            (BuildContext context, AsyncSnapshot<List<Contribution>> snapshot) {
-          if (!snapshot.hasData)
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-
-          return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) => ListTile(
-                  title: Text('${snapshot.data[index].title}'),
-                ),
-          );
-        });
   }
 }

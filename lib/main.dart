@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:utopian_rocks_mobile/blocs/contribution_bloc.dart';
 import 'package:utopian_rocks_mobile/blocs/information_bloc.dart';
-import 'package:utopian_rocks_mobile/blocs/steem_bloc.dart';
 import 'package:utopian_rocks_mobile/components/information_drawer.dart';
 import 'package:utopian_rocks_mobile/components/list_page.dart';
 import 'package:utopian_rocks_mobile/models/github_api.dart';
 import 'package:utopian_rocks_mobile/models/rocks_api.dart';
-import 'package:utopian_rocks_mobile/models/steem_api.dart';
 import 'package:utopian_rocks_mobile/components/bottom_bar.dart';
+
+import 'package:utopian_rocks_mobile/blocs/steem_bloc.dart';
+import 'package:utopian_rocks_mobile/models/steem_api.dart';
 
 import 'package:utopian_rocks_mobile/blocs/base_provider.dart';
 

@@ -7,7 +7,7 @@ description: A flutter application for the utopian.rocks website.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 0.0.1
+version: 0.1.5
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
@@ -21,8 +21,6 @@ dependencies:
   package_info: ^0.3.2
   timeago: ^2.0.10
   url_launcher: ^4.0.2
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   intl: ^0.15.7
   

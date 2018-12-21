@@ -24,19 +24,26 @@ class BottomBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           StreamBuilder(
-              stream: steemBloc.timer,
-              builder: (context, timerSnapshot) {
-                return Text(
-                  'Next Vote Cycle: ${DateFormat.Hms().format(DateTime(0, 0, 0, 0, 0, timerSnapshot.data ?? 0))}',
+            stream: steemBloc.timer,
+            builder: (context, timerSnapshot) => Text(
+                  'Next Vote Cycle: ${DateFormat.Hms().format(
+                    DateTime(0, 0, 0, 0, 0, timerSnapshot.data ?? 0),
+                  )}',
                   style: TextStyle(fontWeight: FontWeight.w700),
-                );
-              }),
+                ),
+          ),
           StreamBuilder(
               stream: steemBloc.voteCount,
               builder: (context, votecountSnapshot) {
-                return Text(
-                  'Vote Power: ${votecountSnapshot.data != 100.00 || null ? votecountSnapshot.data?.toStringAsPrecision(4) ?? 0 : 100.00}',
-                  style: TextStyle(fontWeight: FontWeight.w700),
+                return Flex(
+                  direction: Axis.horizontal,
+                  children: [
+                    Text(
+                      'Vote Power: ${votecountSnapshot.data != 100.00 || null ? votecountSnapshot.data?.toStringAsPrecision(4) ?? 00.00 : 100.00}',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                    Icon(Icons.flash_on, size: 18.0)
+                  ],
                 );
               }),
           Padding(

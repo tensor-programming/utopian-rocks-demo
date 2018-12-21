@@ -50,16 +50,19 @@ class GithubModel {
         this.htmlUrl = json['html_url'];
 }
 
-class SteemRequest {
+class SteemResponse {
   final String lastVoteTime;
   final int votingPower;
 
-  SteemRequest(this.lastVoteTime, this.votingPower);
+  SteemResponse(this.lastVoteTime, this.votingPower);
 
-  SteemRequest.fromJson(Map json)
+  SteemResponse.fromJson(Map json)
       : this.lastVoteTime = json["last_vote_time"],
         this.votingPower = json["voting_power"];
 }
+
+
+
 
 //  {
 //     "url": "https://api.github.com/repos/tensor-programming/utopian-rocks-mobile/releases/12924753",

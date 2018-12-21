@@ -15,12 +15,14 @@ class SteemBloc {
   SteemBloc(this.api) {
     _voteCount.sink.addStream(
       Observable.periodic(Duration(seconds: 1), (x) => x)
-          .asyncMap((x) => api.calculateVotingPower(x: x.toString())),
+          .asyncMap((x) => api.calculateVotingPower(x))
+          .asBroadcastStream(),
     );
 
     _timer.sink.addStream(
       Observable.periodic(Duration(seconds: 1), (x) => x)
-          .asyncMap((x) => api.getRechargeTime(x)),
+          .asyncMap((x) => api.getRechargeTime(x))
+          .asBroadcastStream(),
     );
   }
 

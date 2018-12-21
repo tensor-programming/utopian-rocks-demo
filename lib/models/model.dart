@@ -39,6 +39,61 @@ class Contribution {
         status = json['status'];
 }
 
+class GithubModel {
+  final String tagName;
+  final String htmlUrl;
+
+  GithubModel(this.tagName, this.htmlUrl);
+
+  GithubModel.fromJson(Map json)
+      : this.tagName = json['tag_name'],
+        this.htmlUrl = json['html_url'];
+}
+
+class SteemRequest {
+  final String lastVoteTime;
+  final int votingPower;
+
+  SteemRequest(this.lastVoteTime, this.votingPower);
+
+  SteemRequest.fromJson(Map json)
+      : this.lastVoteTime = json["last_vote_time"],
+        this.votingPower = json["voting_power"];
+}
+
+//  {
+//     "url": "https://api.github.com/repos/tensor-programming/utopian-rocks-mobile/releases/12924753",
+//     "assets_url": "https://api.github.com/repos/tensor-programming/utopian-rocks-mobile/releases/12924753/assets",
+//     "upload_url": "https://uploads.github.com/repos/tensor-programming/utopian-rocks-mobile/releases/12924753/assets{?name,label}",
+//     "html_url": "https://github.com/tensor-programming/utopian-rocks-mobile/releases/tag/0.1.0",
+//     "id": 12924753,
+//     "node_id": "MDc6UmVsZWFzZTEyOTI0NzUz",
+//     "tag_name": "0.1.0",
+//     "target_commitish": "master",
+//     "name": "Prerelease version 0.1.0",
+//     "draft": false,
+//     "author": {
+//       "login": "tensor-programming",
+//       "id": 22513880,
+//       "node_id": "MDQ6VXNlcjIyNTEzODgw",
+//       "avatar_url": "https://avatars0.githubusercontent.com/u/22513880?v=4",
+//       "gravatar_id": "",
+//       "url": "https://api.github.com/users/tensor-programming",
+//       "html_url": "https://github.com/tensor-programming",
+//       "followers_url": "https://api.github.com/users/tensor-programming/followers",
+//       "following_url": "https://api.github.com/users/tensor-programming/following{/other_user}",
+//       "gists_url": "https://api.github.com/users/tensor-programming/gists{/gist_id}",
+//       "starred_url": "https://api.github.com/users/tensor-programming/starred{/owner}{/repo}",
+//       "subscriptions_url": "https://api.github.com/users/tensor-programming/subscriptions",
+//       "organizations_url": "https://api.github.com/users/tensor-programming/orgs",
+//       "repos_url": "https://api.github.com/users/tensor-programming/repos",
+//       "events_url": "https://api.github.com/users/tensor-programming/events{/privacy}",
+//       "received_events_url": "https://api.github.com/users/tensor-programming/received_events",
+//       "type": "User",
+//       "site_admin": false
+//     },
+
+// Utopian rocks API
 // {
 //     "author": "froq",
 //     "beneficiaries_set": true,

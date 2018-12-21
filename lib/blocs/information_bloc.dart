@@ -10,10 +10,10 @@ class InformationBloc {
   final Future<PackageInfo> packageInfo;
   final GithubApi api;
 
-  Stream<PackageInfo> _infoStream = Stream.empty();
+  StreamController<PackageInfo> _infoStream = StreamController<PackageInfo>();
   Stream<GithubModel> _releases = Stream.empty();
 
-  Stream<PackageInfo> get infoStream => _infoStream;
+  Stream<PackageInfo> get infoStream => _infoStream.stream;
   Stream<GithubModel> get releases => _releases;
 
   InformationBloc(this.packageInfo, this.api) {
@@ -22,13 +22,13 @@ class InformationBloc {
       reusable: true,
     );
 
-    _infoStream = Observable.defer(
+    _infoStream.sink.addStream(Observable.defer(
       () => Observable.fromFuture(packageInfo).asBroadcastStream(),
       reusable: true,
-    );
+    ));
   }
 
   void dispose() {
-    print("Dispose of Information Bloc");
+    _infoStream.close();
   }
 }

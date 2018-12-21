@@ -7,10 +7,10 @@ class SteemBloc {
   final SteemApi api;
 
   StreamController<double> _voteCount = StreamController<double>();
-  Stream<int> _timer = Stream.empty();
+  StreamController<int> _timer = StreamController<int>();
 
   Stream<double> get voteCount => _voteCount.stream;
-  Stream<int> get timer => _timer;
+  Stream<int> get timer => _timer.stream;
 
   SteemBloc(this.api) {
     _voteCount.sink.addStream(
@@ -18,11 +18,14 @@ class SteemBloc {
           .asyncMap((x) => api.calculateVotingPower(x: x.toString())),
     );
 
-    _timer = Observable.periodic(Duration(seconds: 1), (x) => x)
-        .asyncMap((x) => api.getRechargeTime(x));
+    _timer.sink.addStream(
+      Observable.periodic(Duration(seconds: 1), (x) => x)
+          .asyncMap((x) => api.getRechargeTime(x)),
+    );
   }
 
   void dispose() {
     _voteCount.close();
+    _timer.close();
   }
 }

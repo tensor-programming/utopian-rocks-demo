@@ -12,9 +12,6 @@ import 'package:utopian_rocks_mobile/components/bottom_bar.dart';
 
 import 'package:utopian_rocks_mobile/blocs/base_provider.dart';
 
-// import 'package:utopian_rocks_mobile/providers/contribution_provider.dart';
-// import 'package:utopian_rocks_mobile/providers/information_provider.dart';
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
